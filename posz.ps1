@@ -30,7 +30,7 @@ function cd2 {
         $script:zscore = $script:zscore | ?{ $_.recent -ge 1}
     }
     
-    $zscore | export-csv $zscoreFile
+    $zscore | export-csv $zscoreFile -notypeinformation
     
     set-location $path
 
