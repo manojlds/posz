@@ -51,8 +51,7 @@ function z ( $path, [switch] $list, [switch] $ranked, [switch] $times){
     } elseif ($times){
         $expression = '$([convert]::toint32($_.frequency))'
     }
-    
-    $pathFound = $zscore | ?{ $_ -match $path } | sort -property @{Expression = "$($ExecutionContext.InvokeCommand.ExpandString($expression))" } -desc | select -first 1
+    $pathFound = $zscore | ?{ $_ -match $path } | sort -property @{Expression = "$(iex $expression)" } -desc | select -first 1
     
     if($pathFound){
         cd $pathFound.path
