@@ -52,13 +52,9 @@ function z ( $path, [switch] $list, [switch] $ranked, [switch] $times){
         $expression = '$([convert]::toint32($_.frequency))'
     }
     
-    $pathFound = $zscore | ?{write-host $ExecutionContext.InvokeCommand.ExpandString($expression);  $_ -match $path } | sort -property @{Expression = "$($ExecutionContext.InvokeCommand.ExpandString($expression))" } -desc | select -first 1
+    $pathFound = $zscore | ?{ $_ -match $path } | sort -property @{Expression = "$($ExecutionContext.InvokeCommand.ExpandString($expression))" } -desc | select -first 1
     
     if($pathFound){
         cd $pathFound.path
     }
-}
-
-function local:scores{
-    $zscore
 }
